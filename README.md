@@ -107,7 +107,6 @@ Our sign-out feature has been implemented but it may not function as intended.
 
 ![image](https://github.com/VCDBN/XBCAD7319-XBCAD7329-G1-2023/assets/101713997/03708a29-3f8e-43fe-b802-9c7789998dc8)
 
-![image](https://github.com/VCDBN/XBCAD7319-XBCAD7329-G1-2023/assets/101713997/6674f85f-63f5-474a-afd2-ee4e4d32857d)
 
 
 
