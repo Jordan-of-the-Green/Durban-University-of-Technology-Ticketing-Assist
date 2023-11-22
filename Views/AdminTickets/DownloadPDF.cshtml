@@ -1,0 +1,43 @@
+﻿@model Ticket
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Ticket Details</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Ticket Details</h1>
+        <h2>@Model.Name</h2>
+        <p>
+            Name: @Model.Name <br />
+            Email: @Model.Email <br />
+            Category: @Model.Category <br />
+            Date: @Model.DateTicket <br />
+            Description: @Model.Description <br />
+        </p>
+
+        <a asp-controller="AdminTickets" asp-action="Index">Back to Details</a>
+    </div>
+
+    <div>
+        @{
+            Html.BeginForm("DownloadPDF", "AdminTickets", FormMethod.Post);
+            {
+                <button type="submit" class="container btn-primary" data-url="@Url.Action($"DownloadPDF/{Model?.Id}")">Download PDF</button>
+                
+            }
+            Html.EndForm();
+        }
+    </div>
+
+             <hr>
+
+        <!-- Add a Back Button -->
+        <a class="btn btn-secondary" asp-controller="Auth" asp-action="UserProfileAdmin">Back to Dashboard</a>
+
+</body>
+</html>
+

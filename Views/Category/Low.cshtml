@@ -1,0 +1,133 @@
+﻿@model PaginatedList<Helpful_Hackers._XBCAD7319._POE.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Low Tickets";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" />
+    <title>Low Tickets</title>
+</head>
+<body>
+
+<div class="container">
+    <h1>Low Tickets</h1>
+    <p>Displaying only Low tickets.</p>
+    <hr>
+
+    <table class="table" id="ticketTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().Email)
+                </th>
+                <th id="categoryHeader">
+                    <a href="javascript:void(0)" onclick="sortTableByCategory()">
+                        @Html.DisplayNameFor(model => model.Items.First().Category)
+                    </a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().DateTicket)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().Description)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items.Where(ticket => ticket.Category == "LOW"))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTicket)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    
+        
+         <hr>
+
+        <!-- Add a Back Button -->
+        <a class="btn btn-secondary" asp-controller="Auth" asp-action="UserProfileAdmin">Back to Dashboard</a>
+
+
+
+
+</div>
+
+<script>
+    function sortTableByCategory() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("ticketTable");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[2]; // Category column
+                y = rows[i + 1].getElementsByTagName("TD")[2]; // Next row's Category column
+                var xValue = x.innerHTML.trim().toUpperCase();
+                var yValue = y.innerHTML.trim().toUpperCase();
+                if (xValue === "MEDIUM" && yValue === "LOW" ||
+                    xValue === "HIGH" && (yValue === "MEDIUM" || yValue === "LOW")) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+        colorCodeRows();
+    }
+
+    function colorCodeRows() {
+        var table, rows, i;
+        table = document.getElementById("ticketTable");
+        rows = table.rows;
+
+        for (i = 1; i < rows.length; i++) {
+            var categoryCell = rows[i].getElementsByTagName("TD")[2]; // Category column
+            var categoryValue = categoryCell.innerHTML.trim().toUpperCase();
+
+            // Reset previous classes
+            rows[i].classList.remove("red-bg", "orange-bg", "green-bg", "text-white");
+
+            // Apply color coding and text color class based on the category
+            if (categoryValue === "HIGH") {
+                rows[i].classList.add("red-bg", "text-white");
+            } else if (categoryValue === "MEDIUM") {
+                rows[i].classList.add("orange-bg", "text-white");
+            } else if (categoryValue === "LOW") {
+                rows[i].classList.add("green-bg", "text-white");
+            }
+        }
+    }
+</script>
+</body>
+</html>
+

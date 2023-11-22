@@ -1,0 +1,189 @@
+﻿
+
+@*/***************************************************************************************
+ *    Title: <Tutorial: Add sorting, filtering, and paging with the Entity Framework in an ASP.NET MVC application>
+ *    Author: <Microsoft>
+ *    Date Published: <14 April 2023>
+ *    Date Retrieved: <10 September 2023>
+ *    Code version: <1.0.0>
+ *    Availability: <https://learn.microsoft.com/en-us/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application>
+ *
+ ***************************************************************************************/*@
+
+@*/***************************************************************************************
+ *    Title: <JavaScript Tutorial - How To Change Table Row Background Color Based on Stock Value>
+ *    Author: <1BestCsharp blog>
+ *    Date Published: <8 June 2023>
+ *    Date Retrieved: <12 September 2023>
+ *    Code version: <1.0.0>
+ *    Availability: <https://www.youtube.com/watch?v=gcLgVVJNFB8>
+ *
+ ***************************************************************************************/*@
+
+@model PaginatedList<Helpful_Hackers._XBCAD7319._POE.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" />
+    <title>Index</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tickets Made by Users</h1>
+        <p>Please fill in this searchTab to find a user.</p>
+        <hr>
+
+        <div>
+            <form asp-controller="AdminTickets" asp-action="Index" method="get">
+                <input type="text" name="search" placeholder="Search by Email" value="@ViewBag.CurrentFilter" />
+                <input type="submit" value="Search" />
+            </form>
+        </div>
+
+        <hr />
+
+       
+
+        <p>
+            <a asp-action="Create">Create New Ticket Response</a>
+        </p>
+
+        <hr />
+
+    </div>
+
+    <table class="table" id="ticketTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().Email)
+                </th>
+                <th id="categoryHeader">
+                    <a href="javascript:void(0)" onclick="sortTableByCategory()">
+                        @Html.DisplayNameFor(model => model.Items.First().Category)
+                    </a>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().DateTicket)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Items.First().Description)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                    <tr>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.DateTicket)
+                        </td>
+                        <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+
+    
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    @for (var i = 1; i <= Model.TotalPages; i++)
+                    {
+                            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, search = ViewBag.CurrentFilter })">@i</a>
+                            </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+         <hr>
+
+        <!-- Add a Back Button -->
+        <a class="btn btn-secondary" asp-controller="Auth" asp-action="UserProfileAdmin">Back to Dashboard</a>
+
+
+<script>
+    function sortTableByCategory() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("ticketTable");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[2]; // Category column
+                y = rows[i + 1].getElementsByTagName("TD")[2]; // Next row's Category column
+                var xValue = x.innerHTML.trim().toUpperCase();
+                var yValue = y.innerHTML.trim().toUpperCase();
+                if (xValue === "MEDIUM" && yValue === "LOW" ||
+                    xValue === "HIGH" && (yValue === "MEDIUM" || yValue === "LOW")) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+        colorCodeRows();
+    }
+
+    function colorCodeRows() {
+        var table, rows, i;
+        table = document.getElementById("ticketTable");
+        rows = table.rows;
+
+        for (i = 1; i < rows.length; i++) {
+            var categoryCell = rows[i].getElementsByTagName("TD")[2]; // Category column
+            var categoryValue = categoryCell.innerHTML.trim().toUpperCase();
+
+            // Reset previous classes
+            rows[i].classList.remove("red-bg", "orange-bg", "green-bg", "text-white");
+
+            // Apply color coding and text color class based on the category
+            if (categoryValue === "HIGH") {
+                rows[i].classList.add("red-bg", "text-white");
+            } else if (categoryValue === "MEDIUM") {
+                rows[i].classList.add("orange-bg", "text-white");
+            } else if (categoryValue === "LOW") {
+                rows[i].classList.add("green-bg", "text-white");
+            }
+        }
+    }
+</script>
+</body>
+</html>

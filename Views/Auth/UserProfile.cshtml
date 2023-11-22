@@ -1,0 +1,60 @@
+﻿
+
+@model Helpful_Hackers._XBCAD7319._POE.Models.UserModel
+
+<style>
+    .btn-group {
+        margin-top: 27px; /* Adjust the margin as needed */
+    }
+</style>
+
+<div style="text-align: center;">
+    <h1>
+        Welcome, @Model.UserName! <br>
+    </h1>
+
+    <hr>
+
+    <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="UserTickets" asp-action="Create" style="text-align: center; display: inline-block;">
+            <img src="~/images/ticket.jpg" />
+            <span id="menuHeading">Create Ticket</span>
+            <span class="tooltiptext">
+                Create a user ticket which will be responded to by a technical support technician.
+            </span>
+        </a>
+    </div>
+
+    <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="UserTickets" asp-action="Index" style="text-align: center; display: inline-block;">
+            <img src="~/images/table.png" />
+            <span id="menuHeading">View Tickets</span>
+            <span class="tooltiptext">
+                View all tickets created by you, past, present, and future.
+            </span>
+        </a>
+    </div>
+
+    <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="AdditionalSupport" asp-action="ContactSupport" style="text-align: center; display: inline-block;">
+            <img src="~/images/Contact.png" />
+            <span id="menuHeading">Contact Support</span>
+            <span class="tooltiptext">
+               Contact support in case of unresolved tickets.
+            </span>
+        </a>
+    </div>
+
+    <br/>
+
+    <div  style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="Reviews" asp-action="Create" style="text-align: center; display: inline-block;">
+            <img src="~/images/add review.png"/>
+            <span id="menuHeading">Add a Review</span>
+            <span class="tooltiptext">
+                Add a review of the service recieved.
+            </span>
+        </a>
+    </div>
+
+</div>

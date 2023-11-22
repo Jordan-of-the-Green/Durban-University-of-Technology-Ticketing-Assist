@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Helpful_Hackers._XBCAD7319._POE.Models.Review>
+
+<br>
+<h1>Reviews</h1>
+
+<table class="table table-ordered table-responsive table-hover">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <!--<a asp-action="UserReviews">Back to List</a>-->
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<a class="btn btn-secondary" asp-controller="Auth" asp-action="UserProfileAdmin">Back to Dashboard</a>
+
+
+
+
+
+
+

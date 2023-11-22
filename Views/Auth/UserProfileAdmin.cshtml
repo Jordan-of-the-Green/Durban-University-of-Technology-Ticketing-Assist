@@ -1,0 +1,77 @@
+﻿
+
+@model Helpful_Hackers._XBCAD7319._POE.Models.UserModel
+
+<style>
+    .btn-group {
+        margin-top: 10px; /* Adjust the margin as needed */
+    }
+</style>
+
+<div style="text-align: center;">
+    <h1>
+        Admin: @Model.UserName! <br>
+    </h1>
+
+    <hr>
+
+    <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="AdminTickets" asp-action="Create" style="text-align: center; display: inline-block;">
+            <img src="~/images/email.png" />
+            <span id="menuHeading">Ticket Response</span>
+            <span class="tooltiptext">
+                Click here to respond to a users ticket.
+            </span>
+        </a>
+    </div>
+
+    <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="AdminTickets" asp-action="Index" style="text-align: center; display: inline-block;">
+            <img src="~/images/table.png" />
+            <span id="menuHeading">View Tickets</span>
+            <span class="tooltiptext">
+                View all tickets created by students, past, present, and future.
+            </span>
+        </a>
+    </div>
+
+        <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="Reviews" asp-action="UserReviews" style="text-align: center; display: inline-block;">
+            <img src="~/images/review.png" />
+            <span id="menuHeading">Reviews</span>
+            <span class="tooltiptext">
+                View all reviews created by students, past, present, and future.
+            </span>
+        </a>
+    </div>
+
+        <div style="display: inline-block;">
+         <a class="btn-group" asp-area="" asp-controller="Category" asp-action="Index" style="text-align: center; display: inline-block;">
+            <img src="~/images/ticket.jpg" />
+            <span id="menuHeading">High Tickets</span>
+            <span class="tooltiptext">
+                Click here to view tickets of HIGH importance.
+            </span>
+        </a>
+    </div>
+
+    <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="Category" asp-action="Medium" style="text-align: center; display: inline-block;">
+            <img src="~/images/ticket.jpg" />
+            <span id="menuHeading">Medium Tickets</span>
+            <span class="tooltiptext">
+                Click here to view tickets of MEDIUM importance.
+            </span>
+        </a>
+    </div>
+
+        <div style="display: inline-block;">
+        <a class="btn-group" asp-area="" asp-controller="Category" asp-action="Low" style="text-align: center; display: inline-block;">
+            <img src="~/images/ticket.jpg" />
+            <span id="menuHeading">Low Tickets</span>
+            <span class="tooltiptext">
+                Click here to view tickets of LOW importance.
+            </span>
+        </a>
+    </div>
+</div>
